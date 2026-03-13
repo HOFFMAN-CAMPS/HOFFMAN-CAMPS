@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoffman Camps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#c0272d;--red-dk:#8b1a1e;--red-lt:#e03035;--charcoal:#1c1c1c;--offwhite:#f7f4f0;--sand:#ede8e0;--mid:#6b6b6b;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--offwhite);color:var(--charcoal);overflow-x:hidden;}
+
+  nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 5rem;height:72px;background:rgba(28,28,28,0.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(192,39,45,0.2);}
+  .nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;}
+  .nav-logo-img{width:42px;height:42px;object-fit:cover;border-radius:4px;}
+  .logo-text{font-size:.95rem;font-weight:500;color:#f7f4f0;letter-spacing:.08em;text-transform:uppercase;}
+  nav ul{list-style:none;display:flex;gap:2.5rem;}
+  nav ul a{color:rgba(247,244,240,.6);text-decoration:none;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;transition:color .3s;}
+  nav ul a:hover{color:var(--red-lt);}
+
+  #hero{min-height:100vh;background:var(--charcoal);display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px;}
+  .hero-bg-red{position:absolute;top:0;right:0;width:44%;height:100%;background:var(--red);clip-path:polygon(18% 0%,100% 0%,100% 100%,0% 100%);}
+  .hero-bg-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 80px),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 80px);}
+  .hero-content{position:relative;z-index:2;padding:5rem;}
+  .hero-eyebrow{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red-lt);margin-bottom:1.8rem;opacity:0;animation:fu .7s .2s forwards;}
+  .hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:900;color:#f7f4f0;line-height:1;margin-bottom:2rem;opacity:0;animation:fu .7s .4s forwards;}
+  .hero-title em{color:var(--red-lt);font-style:italic;}
+  .hero-subtitle{font-size:1.02rem;color:rgba(247,244,240,.55);max-width:480px;line-height:1.8;font-weight:300;margin-bottom:3rem;opacity:0;animation:fu .7s .6s forwards;}
+  .hero-cta{display:inline-block;background:var(--red);color:white;padding:1rem 2.8rem;font-weight:500;font-size:.83rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .3s;opacity:0;animation:fu .7s .8s forwards;}
+  .hero-cta:hover{background:var(--red-dk);transform:translateY(-2px);}
+  .hero-stat{position:absolute;right:5%;top:50%;transform:translateY(-50%);z-index:3;text-align:center;color:white;}
+  .hero-stat .sn{font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;line-height:1;}
+  .hero-stat .sl{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:.3rem;}
+  @keyframes fu{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  #about{display:grid;grid-template-columns:1fr 1fr;min-height:480px;}
+  .about-left{background:var(--red);padding:6rem 4rem;display:flex;flex-direction:column;justify-content:center;}
+  .about-left .lbl{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1rem;}
+  .about-left h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:white;line-height:1.2;margin-bottom:1.5rem;}
+  .about-left p{color:rgba(255,255,255,.75);line-height:1.85;font-size:.98rem;font-weight:300;}
+  .about-right{background:var(--sand);padding:4rem;display:grid;grid-template-columns:1fr 1fr;gap:2px;align-content:center;}
+  .stat-box{background:var(--offwhite);padding:2.2rem 1.8rem;border-left:3px solid var(--red);}
+  .stat-box .num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:var(--red);line-height:1;}
+  .stat-box .lbl{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-top:.4rem;}
+
+  #camps{padding:7rem 5rem;background:var(--offwhite);}
+  .sec-label{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:.8rem;}
+  .sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:900;color:var(--charcoal);}
+  .sec-line{width:48px;height:3px;background:var(--red);margin-top:.8rem;margin-bottom:3.5rem;}
+  #camps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5px;background:#d8d0c4;}
+  .camp-card{background:var(--offwhite);overflow:hidden;transition:transform .3s;display:flex;flex-direction:column;cursor:pointer;}
+  .camp-card:hover{transform:translateY(-4px);z-index:2;box-shadow:0 16px 48px rgba(0,0,0,.12);}
+  .camp-img{width:100%;height:200px;object-fit:cover;display:block;}
+  .camp-img-placeholder{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;}
+  .camp-img-placeholder::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.5) 100%);}
+  .badge-wrap{position:relative;}
+  .img-badge{position:absolute;bottom:.8rem;left:1rem;z-index:1;}
+  .badge{display:inline-block;background:white;color:var(--charcoal);font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .7rem;}
+  .badge.open{background:var(--red);color:white;}
+  .badge.full{background:var(--charcoal);color:white;}
+  .badge.finished{background:#999;color:white;}
+  .camp-body{padding:1.8rem;flex:1;display:flex;flex-direction:column;}
+  .camp-name{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:700;color:var(--charcoal);margin-bottom:.4rem;}
+  .camp-meta{font-size:.76rem;color:var(--mid);margin-bottom:.2rem;}
+  .camp-desc{font-size:.88rem;color:rgba(28,28,28,.62);line-height:1.7;margin-top:.7rem;}
+  .no-camps{background:var(--offwhite);padding:5rem;text-align:center;color:var(--mid);font-style:italic;width:100%;grid-column:1/-1;}
+  .loading-camps{background:var(--offwhite);padding:5rem;text-align:center;color:var(--mid);width:100%;grid-column:1/-1;}
+  .loading-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);animation:ld 1.2s ease-in-out infinite;}
+  .loading-dot:nth-child(2){animation-delay:.2s;}
+  .loading-dot:nth-child(3){animation-delay:.4s;}
+  @keyframes ld{0%,80%,100%{transform:scale(0);opacity:.3;}40%{transform:scale(1);opacity:1;}}
+
+  footer{background:var(--charcoal);padding:4rem 5rem;}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:1.5rem;}
+  .footer-logo{display:flex;align-items:center;gap:.75rem;}
+  .footer-logo-img{width:40px;height:40px;object-fit:cover;border-radius:4px;}
+  .footer-logo-txt{font-size:.9rem;font-weight:500;color:#f7f4f0;letter-spacing:.08em;text-transform:uppercase;}
+  .footer-contact{display:flex;flex-direction:column;gap:.4rem;align-items:flex-end;}
+  .footer-contact a{font-size:.85rem;color:var(--red-lt);text-decoration:none;transition:opacity .2s;}
+  .footer-contact a:hover{opacity:.75;}
+  .footer-copy{font-size:.7rem;color:rgba(247,244,240,.18);}
+
+  /* CAMP DETAIL MODAL */
+  .cd-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem;}
+  .cd-overlay.open{display:flex;}
+  .cd-modal{background:var(--offwhite);max-width:680px;width:100%;max-height:92vh;overflow-y:auto;position:relative;animation:cdIn .35s cubic-bezier(.16,1,.3,1);}
+  @keyframes cdIn{from{opacity:0;transform:translateY(28px)scale(.97);}to{opacity:1;transform:translateY(0)scale(1);}}
+  .cd-close{position:absolute;top:1rem;right:1rem;z-index:10;width:36px;height:36px;background:rgba(28,28,28,.65);backdrop-filter:blur(4px);border:none;border-radius:50%;cursor:pointer;color:white;font-size:1rem;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .2s;}
+  .cd-close:hover{background:var(--red);}
+  .cd-hero{width:100%;height:300px;object-fit:cover;display:block;}
+  .cd-hero-placeholder{width:100%;height:240px;display:flex;align-items:center;justify-content:center;font-size:4.5rem;}
+  .cd-body{padding:2.5rem 2.8rem 3rem;}
+  .cd-badge{display:inline-block;font-size:.63rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .85rem;margin-bottom:1.2rem;}
+  .cd-badge.upcoming{background:var(--sand);color:var(--charcoal);}
+  .cd-badge.open{background:var(--red);color:white;}
+  .cd-badge.full{background:var(--charcoal);color:white;}
+  .cd-badge.finished{background:#aaa;color:white;}
+  .cd-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:900;color:var(--charcoal);line-height:1.1;margin-bottom:1.4rem;}
+  .cd-metas{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1.5px solid rgba(28,28,28,.1);}
+  .cd-meta-row{display:flex;align-items:center;gap:.7rem;font-size:.92rem;color:rgba(28,28,28,.65);}
+  .cd-meta-row .cd-icon{font-size:1rem;width:1.4rem;text-align:center;}
+  .cd-desc-label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:.9rem;}
+  .cd-desc{font-size:.98rem;color:rgba(28,28,28,.72);line-height:1.9;white-space:pre-wrap;}
+  .cd-btn-wrap{margin-top:2.4rem;}
+  .cd-reg-btn{display:inline-block;background:var(--red);color:white;padding:1rem 2.8rem;font-size:.83rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .3s;}
+  .cd-reg-btn:hover{background:var(--red-dk);}
+  .cd-no-link{font-size:.88rem;color:var(--mid);font-style:italic;margin-top:.6rem;}
+
+  .toast{position:fixed;bottom:2rem;right:2rem;background:var(--charcoal);color:white;padding:.9rem 1.8rem;font-size:.85rem;border-left:4px solid var(--red);z-index:9999;transform:translateY(100px);transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+  .toast.show{transform:translateY(0);}
+
+  @media(max-width:900px){
+    nav{padding:0 1.5rem;}nav ul{display:none;}
+    .hero-content{padding:4rem 1.5rem;}.hero-stat{display:none;}
+    .hero-bg-red{width:100%;clip-path:none;opacity:.08;}
+    #about{grid-template-columns:1fr;}.about-left,.about-right{padding:3.5rem 2rem;}
+    #camps{padding:4rem 1.5rem;}#camps-grid{grid-template-columns:1fr;}
+    footer{padding:3rem 1.5rem;}.footer-contact{align-items:flex-start;}
+    .cd-body{padding:1.8rem 1.5rem 2.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img class="nav-logo-img" src="data:image/jpeg;base64,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" alt="Hoffman Camps">
+    <span class="logo-text">Hoffman Camps</span>
+  </a>
+  <ul>
+    <li><a href="#camps">Kamplar</a></li>
+    <li><a href="#about">Haqqımızda</a></li>
+    <li><a href="#footer">Əlaqə</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg-red"></div>
+  <div class="hero-bg-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="hero-eyebrow-text">Biznes Kamplar · Professional Təcrübə</div>
+    <h1 class="hero-title" id="hero-title-text">Hoffman<br><em>Camps</em></h1>
+    <p class="hero-subtitle" id="hero-subtitle-text">Hoffman şirkəti olaraq liderlik, komanda ruhu və professional inkişaf üçün biznes kamplar təşkil edirik.</p>
+    <a href="#camps" class="hero-cta">Kamplara Bax</a>
+  </div>
+  <div class="hero-stat">
+    <div class="sn" id="stat1-num">—</div>
+    <div class="sl" id="stat1-label">Biznes Kamp</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-left">
+    <div class="lbl">Haqqımızda</div>
+    <h2 id="about-heading-display">Peşəkar komandalar üçün kamplar</h2>
+    <p id="about-text-display">Hoffman Camps, Hoffman şirkətinin biznes və korporativ inkişaf üçün keçirdiyi kamp eventlər platformasıdır.</p>
+  </div>
+  <div class="about-right">
+    <div class="stat-box"><div class="num" id="stat2-num">—</div><div class="lbl" id="stat2-label">İştirakçı</div></div>
+    <div class="stat-box"><div class="num" id="stat3-num">—</div><div class="lbl" id="stat3-label">İl Təcrübə</div></div>
+    <div class="stat-box"><div class="num" id="stat4-num">—</div><div class="lbl" id="stat4-label">Tərəfdaş Şirkət</div></div>
+    <div class="stat-box"><div class="num">100%</div><div class="lbl">Korporativ Fokus</div></div>
+  </div>
+</section>
+
+<section id="camps">
+  <div class="sec-label">Cari & Gələcək Tədbirlər</div>
+  <h2 class="sec-title">Kamplarımız</h2>
+  <div class="sec-line"></div>
+  <div id="camps-grid">
+    <div class="loading-camps">
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="footer-row">
+    <div class="footer-logo">
+      <img class="footer-logo-img" src="data:image/jpeg;base64,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" alt="Hoffman Camps">
+      <span class="footer-logo-txt">Hoffman Camps</span>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:info@hoffmantrustco.com" id="footer-email">info@hoffmantrustco.com</a>
+      <a href="tel:" id="footer-phone" style="display:none"></a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Hoffman Camps · Hoffman Trust Co. Bütün hüquqlar qorunur.</div>
+</footer>
+
+<!-- CAMP DETAIL MODAL -->
+<div class="cd-overlay" id="cd-overlay">
+  <div class="cd-modal">
+    <button class="cd-close" onclick="closeCampDetail()">✕</button>
+    <div id="cd-img-wrap"></div>
+    <div class="cd-body">
+      <div id="cd-badge-el"></div>
+      <div class="cd-title" id="cd-title"></div>
+      <div class="cd-metas" id="cd-metas"></div>
+      <div class="cd-desc-label" id="cd-desc-label" style="display:none">Kamp Haqqında</div>
+      <div class="cd-desc" id="cd-desc"></div>
+      <div class="cd-btn-wrap" id="cd-btn-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SB_URL = 'https://cbfhogrjkjuugmtofyal.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiZmhvZ3Jqa2p1dWdtdG9meWFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNzQ2MDYsImV4cCI6MjA4ODk1MDYwNn0.eIzp1i25qN3k7lqyFq_Sfe5UBqk9oKLHFTHg9xjY6FQ';
+const HEADERS = {'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY};
+const STATUS_LABELS = {upcoming:'Gələcək', open:'Qeydiyyat Açıq', full:'Dolu', finished:'Başa Çatıb'};
+const STATUS_CLS = {upcoming:'upcoming', open:'open', full:'full', finished:'finished'};
+
+async function sbGet(table, params='') {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${params}`, {headers: HEADERS});
+  return r.json();
+}
+
+let allCamps = [];
+
+async function loadSite() {
+  try {
+    const [campsData, settingsData] = await Promise.all([
+      sbGet('camps', 'order=sort_order.asc,created_at.asc'),
+      sbGet('settings', 'select=key,value')
+    ]);
+    allCamps = campsData || [];
+    const s = {};
+    (settingsData || []).forEach(row => s[row.key] = row.value);
+    applySettings(s);
+    renderCamps(allCamps);
+  } catch(e) {
+    console.error(e);
+    document.getElementById('camps-grid').innerHTML = '<div class="no-camps">Yüklənərkən xəta baş verdi.</div>';
+  }
+}
+
+function applySettings(s) {
+  const set = (id, val) => { const el = document.getElementById(id); if(el && val) el.textContent = val; };
+  if(s.eyebrow) document.getElementById('hero-eyebrow-text').textContent = s.eyebrow;
+  if(s.heroTitle) {
+    const pts = s.heroTitle.split(' ');
+    document.getElementById('hero-title-text').innerHTML = pts.length >= 2
+      ? pts.slice(0,-1).join(' ') + '<br><em>' + pts[pts.length-1] + '</em>'
+      : '<em>' + s.heroTitle + '</em>';
+  }
+  if(s.heroSubtitle) document.getElementById('hero-subtitle-text').textContent = s.heroSubtitle;
+  if(s.aboutHeading) document.getElementById('about-heading-display').textContent = s.aboutHeading;
+  if(s.aboutText) document.getElementById('about-text-display').textContent = s.aboutText;
+  set('stat1-num', s.stat1num); set('stat1-label', s.stat1label);
+  set('stat2-num', s.stat2num); set('stat2-label', s.stat2label);
+  set('stat3-num', s.stat3num); set('stat3-label', s.stat3label);
+  set('stat4-num', s.stat4num); set('stat4-label', s.stat4label);
+  if(s.footerContact) {
+    const em = document.getElementById('footer-email');
+    em.textContent = s.footerContact; em.href = 'mailto:' + s.footerContact;
+  }
+  if(s.footerPhone) {
+    const ph = document.getElementById('footer-phone');
+    ph.textContent = s.footerPhone; ph.href = 'tel:' + s.footerPhone.replace(/\s/g,''); ph.style.display = 'block';
+  }
+}
+
+function renderCamps(camps) {
+  const grid = document.getElementById('camps-grid');
+  if(!camps.length) { grid.innerHTML = '<div class="no-camps">Hələlik kamp əlavə edilməyib.</div>'; return; }
+  grid.innerHTML = camps.map(c => {
+    const sl = STATUS_LABELS[c.status] || 'Gələcək';
+    const bc = STATUS_CLS[c.status] || 'upcoming';
+    const imgHtml = c.photo
+      ? `<div class="badge-wrap"><img class="camp-img" src="${c.photo}" alt="${c.name}"><div class="img-badge"><span class="badge ${bc}">${sl}</span></div></div>`
+      : `<div class="badge-wrap"><div class="camp-img-placeholder" style="background:${c.color||'#c0272d'}"><span style="position:relative;z-index:1">${c.emoji||'💼'}</span></div><div class="img-badge"><span class="badge ${bc}">${sl}</span></div></div>`;
+    const shortDesc = c.description && c.description.length > 120 ? c.description.slice(0,120)+'…' : (c.description||'');
+    return `<div class="camp-card" onclick="openCampDetail('${c.id}')">
+      ${imgHtml}
+      <div class="camp-body">
+        <div class="camp-name">${c.name}</div>
+        ${c.date ? `<div class="camp-meta">📅 ${c.date}</div>` : ''}
+        ${c.location ? `<div class="camp-meta">📍 ${c.location}</div>` : ''}
+        ${shortDesc ? `<p class="camp-desc">${shortDesc}</p>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openCampDetail(id) {
+  const c = allCamps.find(x => x.id === id); if(!c) return;
+  const sl = STATUS_LABELS[c.status] || 'Gələcək';
+  const bc = STATUS_CLS[c.status] || 'upcoming';
+  document.getElementById('cd-img-wrap').innerHTML = c.photo
+    ? `<img class="cd-hero" src="${c.photo}" alt="${c.name}">`
+    : `<div class="cd-hero-placeholder" style="background:${c.color||'#c0272d'}">${c.emoji||'💼'}</div>`;
+  document.getElementById('cd-badge-el').innerHTML = `<span class="cd-badge ${bc}">${sl}</span>`;
+  document.getElementById('cd-title').textContent = c.name;
+  let metas = '';
+  if(c.date) metas += `<div class="cd-meta-row"><span class="cd-icon">📅</span><span>${c.date}</span></div>`;
+  if(c.location) metas += `<div class="cd-meta-row"><span class="cd-icon">📍</span><span>${c.location}</span></div>`;
+  const metasEl = document.getElementById('cd-metas');
+  metasEl.innerHTML = metas; metasEl.style.display = metas ? 'flex' : 'none';
+  const descEl = document.getElementById('cd-desc');
+  const descLabel = document.getElementById('cd-desc-label');
+  if(c.description) { descEl.textContent = c.description; descLabel.style.display = 'block'; }
+  else { descEl.textContent = ''; descLabel.style.display = 'none'; }
+  document.getElementById('cd-btn-wrap').innerHTML = c.register_link
+    ? `<a class="cd-reg-btn" href="${c.register_link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Qeydiyyatdan Keç →</a>`
+    : `<p class="cd-no-link">Qeydiyyat linki hələlik əlavə edilməyib.</p>`;
+  document.getElementById('cd-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCampDetail() {
+  document.getElementById('cd-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('cd-overlay').addEventListener('click', e => { if(e.target.id === 'cd-overlay') closeCampDetail(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeCampDetail(); });
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});} });
+});
+
+loadSite();
+</script>
+</body>
+</html>
